@@ -320,6 +320,27 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+  /*
+  Call every on this function
+  */
+    if (collection.length === 0) {
+      return false;
+    }
+
+    if (iterator === undefined) {
+      iterator = _.identity;
+    }
+
+    var everyResult = _.every(collection, function(item) {
+      return !iterator(item);
+    });
+
+    if (everyResult) {
+      return false;
+    } else {
+      return true;
+    }
+
   };
 
 
