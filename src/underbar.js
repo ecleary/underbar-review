@@ -138,7 +138,11 @@
         // Push item to result
     // Return result
     */
-    return _.filter(collection, !test);
+    return _.filter(collection, function(item) {
+      if (test(item) === false) {
+        return true;
+      }
+    });
   };
 
   // Produce a duplicate-free version of the array.
