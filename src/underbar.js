@@ -256,8 +256,20 @@
     */
 
     if (accumulator === undefined) {
-      accumulator = collection[0];
-      collection = collection.slice(1);
+      if (Array.isArray(collection)) {
+        accumulator = collection[0];
+        collection = collection.slice(1);
+      } else {
+        var objKeys = Object.keys(collection);
+        var firstKey = objKeys[0];
+        accumulator = collection[firstKey];
+        var copy = {};
+        _.each(collection, function(value, key, collection) {
+          copy[key] = value;
+        });
+        delete copy[firstKey];
+        collection = copy;
+      }
     }
 
     _.each(collection, function(item) {
